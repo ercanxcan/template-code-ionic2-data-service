@@ -3,7 +3,6 @@
  */
 
 import {Component} from '@angular/core';
-//import OnInit if you wish the data display when the page comes up.
 import {OnInit} from '@angular/core';
 //@import the data service
 import {PostDataService} from '../../services/post-data-service';
@@ -19,7 +18,7 @@ import {tPostData} from '../../services/tpost-data';
 export class HomePage implements OnInit {
 
   //@Declare a placeholder for the data. Strictly type it.
-  data:tPostData;
+  data: tPostData;
 
   constructor(
     //@Inject the service into the page
@@ -27,33 +26,18 @@ export class HomePage implements OnInit {
     ) {
   }
 
-  //@Include a handler for manual refreshing of the data in the page (optional). Eg. a refresh button.
-  onRefreshButtonClick(){
-    //we have defined a single private function to handles data refreshing.
-    this.refreshData();
-  }
-
-  //@Implement ngOnInit if you wish to display data when the page is displayed.
   ngOnInit(){
-    this.refreshData();
-  }
-
-  //this methods subscribes to the results of the data service when they returned.
-  private refreshData(){
-    this._post.getData()
+    this._post.getPosts(/*@Optionally define body parameter and or id parameter*/'2')
       .subscribe(
-          response=>this.onResponse(response),
-          error=>this.onError(error)
+        response => this.onGetPostsOk(response),  //@when replicating change name here
+        error => this.onGetPostsError(error)      //@when repicating change name here
       );
   }
 
-  //@Implement here any further data manipulation or action on a good response here.
-  private onResponse(response){
+  onGetPostsOk(response){   //@change name to match above
     this.data=response;
   }
-
-  //@Implement any error handling for data fetching errors here.
-  private onError(error){
+  onGetPostsError(error){   //@change name to match above
     console.log(error);
   }
 

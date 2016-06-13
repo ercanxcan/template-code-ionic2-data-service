@@ -4,7 +4,7 @@
  */
 export interface tPostData {
     userId: number,
-    id:     number,
+    id?:    number,
     title:  string,
     body:   string
 }
